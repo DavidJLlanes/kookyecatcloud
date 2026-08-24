@@ -1,6 +1,6 @@
 # KookyeCatCloud
 
-Servidor de archivos y backup de fotos para `cloud.djl.com.es`. Node + Express por detrás,
+Servidor de archivos y backup de fotos para `tu-dominio.com`. Node + Express por detrás,
 PWA sin dependencias por delante.
 
 ## Arrancar en local
@@ -57,10 +57,10 @@ systemctl daemon-reload && systemctl enable --now filecloud
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name cloud.djl.com.es;
+    server_name tu-dominio.com;
 
-    ssl_certificate     /etc/letsencrypt/live/cloud.djl.com.es/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/cloud.djl.com.es/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/tu-dominio.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tu-dominio.com/privkey.pem;
 
     # Las subidas llegan hasta 5 GB: sin esto Nginx corta en 1 MB
     client_max_body_size 5G;
@@ -78,7 +78,7 @@ server {
 
 server {
     listen 80;
-    server_name cloud.djl.com.es;
+    server_name tu-dominio.com;
     return 301 https://$host$request_uri;
 }
 ```
@@ -233,7 +233,7 @@ proceso y no tiene acceso a la sesión.
 
 ## WebDAV
 
-`https://cloud.djl.com.es/dav/` con tu usuario y contraseña de siempre. Cada uno ve su propia
+`https://tu-dominio.com/dav/` con tu usuario y contraseña de siempre. Cada uno ve su propia
 raíz, igual que en la web, y las carpetas internas (`.trash`, `.notes`) quedan fuera.
 
 - **Windows** — Explorador → Este equipo → Conectar a unidad de red
@@ -288,7 +288,7 @@ lo que exige la norma para que todos los navegadores acierten.
 
 ## Enlaces de descarga
 
-El inverso de los de subida: `https://cloud.djl.com.es/s/<token>` para mandarle un archivo o
+El inverso de los de subida: `https://tu-dominio.com/s/<token>` para mandarle un archivo o
 una carpeta a alguien sin cuenta. Se crean desde el menú de cualquier elemento (clic derecho →
 *Compartir enlace…*) eligiendo descripción, caducidad y **contraseña opcional**.
 
@@ -304,7 +304,7 @@ los creados antes de que existieran se tratan como `upload`.
 
 ## Enlaces de subida
 
-Desde Administración se crea un enlace `https://cloud.djl.com.es/u/<token>` que permite a
+Desde Administración se crea un enlace `https://tu-dominio.com/u/<token>` que permite a
 cualquiera **dejar** archivos en una carpeta concreta, sin cuenta. Los enlaces viven en
 `uploadlinks.json` y guardan dueño, carpeta destino, caducidad y contadores.
 
