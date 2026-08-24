@@ -2,6 +2,7 @@
   "name": "kookyecatcloud",
   "version": "1.0.0",
   "description": "Servidor de archivos y backup de fotos personal, autoalojado",
+  "license": "MIT",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -3,6 +3,9 @@
 Servidor de archivos y backup de fotos autoalojado. Node + Express por detrás,
 PWA sin dependencias por delante.
 
+Licencia [MIT](LICENSE): úsalo, modifícalo o redistribúyelo libremente, con o sin fines
+comerciales, siempre que mantengas el aviso de copyright.
+
 ## Arrancar en local
 
 ```bash
