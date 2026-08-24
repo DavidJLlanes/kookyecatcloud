@@ -11,7 +11,7 @@ INSECURE_COOKIES=1 DATA_DIR=./storage npm start
 ```
 
 Abre `http://localhost:4000`. En el primer arranque se crea el usuario `admin` y su
-contraseña se imprime **una sola vez** en la consola; cámbiala desde el panel Admin.
+contraseña se imprime **una sola vez** en la consola; cámbiala desde la pestaña **Cuenta**.
 
 `INSECURE_COOKIES=1` es necesario en local porque la cookie de sesión lleva el flag
 `Secure` y el navegador la descartaría sobre `http://`.
@@ -25,6 +25,14 @@ cp .env.example .env      # y rellena JWT_SECRET con: openssl rand -hex 32
 ```
 
 ### systemd — `/etc/systemd/system/filecloud.service`
+
+El servicio corre con un usuario del sistema sin privilegios, no con `root`:
+
+```bash
+useradd --system --no-create-home --shell /usr/sbin/nologin filecloud
+mkdir -p /data/storage
+chown -R filecloud:filecloud /data/storage /opt/filecloud
+```
 
 ```ini
 [Unit]
@@ -47,6 +55,10 @@ ReadWritePaths=/data/storage /opt/filecloud
 [Install]
 WantedBy=multi-user.target
 ```
+
+`ProtectSystem=strict` deja todo el sistema de archivos en solo lectura salvo lo indicado en
+`ReadWritePaths`: si cambias `DATA_DIR` en el `.env` a una ruta distinta de `/data/storage`,
+actualiza también esta línea o el servicio no podrá escribir ahí.
 
 ```bash
 systemctl daemon-reload && systemctl enable --now filecloud
@@ -143,8 +155,8 @@ En el visor, el botón de información abre el panel de detalles de la foto: fec
 exposición (0,004 s se muestra como 1/250), diafragma, ISO, focal, dimensiones y software. Si la
 foto guarda coordenadas, aparece un enlace a **Google Maps** y las coordenadas en decimal.
 
-Se lee con **exifr** (sin dependencias propias). Sobre un posible mapa de ubicaciones: las
-coordenadas ya quedan cacheadas, así que añadirlo después es rápido.
+Se lee con **exifr** (sin dependencias propias). Esa misma caché de coordenadas es la que
+aprovecha el mapa de fotos (siguiente sección) para no releer el EXIF de todo el árbol.
 
 ## Zonas seguras en móvil
 
@@ -361,9 +373,12 @@ Dos herramientas nuevas en Administración:
 
 - **Espacio por carpeta** — un vistazo carpeta a carpeta, con el tamaño de cada subcarpeta ya
   sumado recursivamente, para encontrar qué está llenando el disco sin adivinarlo por tipo.
+  Tope de `DU_LIMIT` (200 000) archivos examinados por subcarpeta, para que un almacén enorme
+  no agote los descriptores de archivo del sistema.
 - **Duplicados** — compara primero por tamaño y solo calcula el hash de lo que coincide, así que
   un almacén con miles de archivos se puede analizar sin tardar minutos. Cada grupo permite
-  marcar todas las copias menos la más antigua y mandarlas a la papelera de una vez.
+  marcar todas las copias menos la más antigua y mandarlas a la papelera de una vez. Tope de
+  `DUP_LIMIT` (20 000) archivos por escaneo.
 
 ## Sesiones, verificación en dos pasos y tokens de aplicación
 
@@ -393,8 +408,9 @@ el móvil desbloqueado un momento.
 
 Cada acción relevante (subidas, borrados, movimientos, inicios de sesión, cambios de
 contraseña, enlaces creados, verificación en dos pasos, tokens…) queda anotada en
-`activity.log.jsonl`, una línea JSON por evento. Cada usuario ve las suyas en Cuenta;
-Administración ve las de todos. El archivo se recorta solo a `ACTIVITY_MAX` líneas.
+`activity.log.jsonl`, una línea JSON por evento. Se ve en la pestaña **Cuenta**: cada usuario
+ve solo las suyas, y el administrador ve las de todos desde esa misma tarjeta. El archivo se
+recorta solo a `ACTIVITY_MAX` líneas.
 
 ## Cómo se guardan los archivos
 
