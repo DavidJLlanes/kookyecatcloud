@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Archivo compartido — KookyeCatCloud</title>
+<meta name="theme-color" content="#070b16">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234f7cff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23a855f7%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22url(%23g)%22%2F%3E%3Cg%20transform%3D%22translate(12%2012)%20scale(.8)%20translate(-12%20-12)%22%3E%3Cpath%20d%3D%22M17.5%2019a4.5%204.5%200%200%200%20.5-8.97%206%206%200%200%200-11.66-1.5A4%204%200%200%200%206.5%2019z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#070b16; --bg-deep:#04070f; --glass:rgba(255,255,255,.045);
+    --line:rgba(255,255,255,.075); --line-2:rgba(255,255,255,.14);
+    --text:#eaf0ff; --muted:#a3b0cf; --faint:#6d7c9e;
+    --b1:#4f7cff; --b2:#a855f7; --brand:linear-gradient(135deg,var(--b1),var(--b2));
+    --ok:#34d399; --danger:#fb5c74;
+    --r:16px; --r-lg:24px; --sh:0 24px 60px -12px rgba(0,0,0,.7);
+    --font:-apple-system,BlinkMacSystemFont,'Segoe UI Variable Display','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
+  body{margin:0;min-height:100dvh;font-family:var(--font);background:var(--bg-deep);color:var(--text);
+    font-size:15px;line-height:1.5;display:flex;align-items:center;justify-content:center;padding:24px;
+    -webkit-font-smoothing:antialiased;}
+  .aurora{position:fixed;inset:-20% -10%;z-index:0;pointer-events:none;overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%,#0d1730 0%,var(--bg) 45%,var(--bg-deep) 100%);}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;}
+  .b1{width:46vw;height:46vw;left:-8vw;top:-12vw;background:radial-gradient(circle,rgba(79,124,255,.75),transparent 70%);}
+  .b2{width:40vw;height:40vw;right:-6vw;top:-6vw;background:radial-gradient(circle,rgba(168,85,247,.6),transparent 70%);}
+  .card{position:relative;z-index:1;width:100%;max-width:460px;padding:34px 30px;border-radius:var(--r-lg);
+    background:linear-gradient(170deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+    border:1px solid var(--line-2);box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);
+    text-align:center;}
+  .logo{width:52px;height:52px;border-radius:16px;margin:0 auto 20px;display:grid;place-items:center;
+    background:var(--brand);box-shadow:0 12px 34px -8px rgba(79,124,255,.85),inset 0 1px 0 rgba(255,255,255,.4);}
+  .logo svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .tipo{width:84px;height:84px;border-radius:24px;margin:0 auto 18px;display:grid;place-items:center;
+    background:var(--glass);border:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.03em;
+    text-transform:uppercase;color:#c3d3ff;}
+  .tipo svg{width:36px;height:36px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+  h1{margin:0 0 6px;font-size:19px;font-weight:700;letter-spacing:-.025em;word-break:break-word;}
+  .meta{margin:0 0 24px;font-size:13px;color:var(--faint);}
+  input{width:100%;padding:12px 14px;border-radius:11px;border:1px solid var(--line);
+    background:rgba(4,7,15,.55);color:var(--text);font-size:15px;font-family:inherit;margin-bottom:12px;
+    text-align:center;}
+  input:focus{outline:none;border-color:var(--b1);box-shadow:0 0 0 4px rgba(79,124,255,.16);}
+  .btn{width:100%;padding:13px;border-radius:12px;border:none;background:var(--brand);color:#fff;
+    font-size:15px;font-weight:650;font-family:inherit;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;gap:9px;box-shadow:0 6px 24px -6px rgba(79,124,255,.6);transition:.2s;}
+  .btn:hover{filter:brightness(1.08);}
+  .btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+  .msg{margin-top:16px;padding:13px 15px;border-radius:12px;font-size:13.5px;}
+  .msg.err{background:rgba(251,92,116,.13);color:#ffb3bd;border:1px solid rgba(251,92,116,.3);}
+  .msg.ok{background:rgba(52,211,153,.13);color:#9df0cf;border:1px solid rgba(52,211,153,.3);}
+  .foot{margin-top:22px;font-size:11.5px;color:var(--faint);}
+  .state{padding:20px 0;color:var(--muted);font-size:14px;}
+  .btn.ghost{background:none;box-shadow:none;color:var(--muted);}
+  .btn.ghost:hover{filter:none;background:rgba(255,255,255,.06);}
+  .acciones{display:flex;flex-direction:column;gap:10px;}
+
+  /* ---------- Galería pública ---------- */
+  [hidden]{display:none !important;}
+  .galeria{position:relative;z-index:1;width:100%;max-width:1180px;margin:0 auto;padding:22px 20px 60px;}
+  .gal-top{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+  .gal-logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;
+    background:var(--brand);box-shadow:0 6px 18px -4px rgba(79,124,255,.7);}
+  .gal-logo svg{width:19px;height:19px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .gal-titulo{flex:1;min-width:0;}
+  .gal-titulo h1{margin:0;font-size:18px;font-weight:700;letter-spacing:-.02em;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;}
+  .gal-titulo span{font-size:12px;color:var(--faint);}
+  .gal-acciones{display:flex;gap:8px;flex-shrink:0;}
+  .gal-acciones .btn{width:auto;white-space:nowrap;flex-shrink:0;}
+  .gal-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin:18px 0 4px;font-size:13px;}
+  .gal-crumbs button{background:none;border:none;font:inherit;color:var(--muted);cursor:pointer;
+    padding:5px 9px;border-radius:8px;}
+  .gal-crumbs button:hover{background:var(--glass);color:var(--text);}
+  .gal-crumbs button.current{color:var(--text);font-weight:650;cursor:default;}
+  .gal-crumbs button.current:hover{background:none;}
+  .gal-crumbs .sep{color:var(--faint);opacity:.5;}
+  .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:13px;margin-top:16px;}
+  .gal-tile{position:relative;display:flex;flex-direction:column;border-radius:14px;overflow:hidden;
+    background:var(--glass);border:1px solid var(--line);cursor:pointer;transition:.22s;}
+  .gal-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px -10px rgba(0,0,0,.6);}
+  .gal-tile .th{aspect-ratio:1;background:rgba(255,255,255,.04);display:grid;place-items:center;overflow:hidden;}
+  .gal-tile .th img{width:100%;height:100%;object-fit:cover;display:block;}
+  .gal-tile .th svg{width:30px;height:30px;color:var(--faint);}
+  .gal-tile .nm{padding:9px 10px;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .gal-vacio{padding:60px 20px;text-align:center;color:var(--faint);}
+  .gal-lb{position:fixed;inset:0;z-index:200;background:rgba(2,4,10,.96);display:flex;flex-direction:column;
+    backdrop-filter:blur(8px);}
+  .gal-lb-top{display:flex;justify-content:flex-end;padding:16px;flex:0 0 auto;}
+  .gal-lb-top button{width:42px;height:42px;border-radius:12px;border:1px solid var(--line-2);background:var(--glass);
+    color:#fff;display:grid;place-items:center;cursor:pointer;}
+  .gal-lb-stage{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:0 16px 16px;position:relative;}
+  .gal-lb-stage img,.gal-lb-stage video{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;}
+  .gal-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--line-2);background:rgba(13,18,34,.75);color:#fff;display:grid;place-items:center;cursor:pointer;}
+  .gal-lb-nav.prev{left:14px;} .gal-lb-nav.next{right:14px;}
+  @media (max-width:600px){
+    .gal-top{flex-wrap:wrap;}
+    .gal-acciones{width:100%;}
+    .gal-acciones .btn{flex:1;}
+    .gal-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+  }
+</style>
+</head>
+<body>
+<div class="aurora"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<main class="card" id="card">
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97 6 6 0 0 0-11.66-1.5A4 4 0 0 0 6.5 19z"/></svg>
+  </div>
+
+  <div id="cargando" class="state">Comprobando el enlace…</div>
+
+  <div id="zona" hidden>
+    <div class="tipo" id="tipo">?</div>
+    <h1 id="titulo">Archivo</h1>
+    <p class="meta" id="meta"></p>
+    <input id="clave" type="password" placeholder="Contraseña" hidden autocomplete="off">
+    <div class="acciones">
+      <button class="btn" id="ver-galeria" hidden>
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-5-5-6 6"/></svg>
+        <span>Ver galería</span>
+      </button>
+      <button class="btn" id="descargar">
+        <svg viewBox="0 0 24 24"><path d="M12 4v12M8 12l4 4 4-4"/><path d="M20 15v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"/></svg>
+        <span id="btn-texto">Descargar</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="aviso"></div>
+  <p class="foot">Compartido con KookyeCatCloud · cloud.djl.com.es</p>
+</main>
+
+<div class="galeria" id="galeria" hidden>
+  <div class="gal-top">
+    <div class="gal-logo"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97 6 6 0 0 0-11.66-1.5A4 4 0 0 0 6.5 19z" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="gal-titulo"><h1 id="gal-titulo">Galería</h1><span id="gal-meta"></span></div>
+    <div class="gal-acciones">
+      <button class="btn ghost" id="gal-volver">Cerrar galería</button>
+      <button class="btn" id="gal-descargar-zip">Descargar todo (ZIP)</button>
+    </div>
+  </div>
+  <nav class="gal-crumbs" id="gal-crumbs"></nav>
+  <div class="gal-grid" id="gal-grid"></div>
+</div>
+
+<div class="gal-lb" id="gal-lb" hidden>
+  <div class="gal-lb-top">
+    <button id="gal-lb-close" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="gal-lb-stage" id="gal-lb-stage">
+    <button class="gal-lb-nav prev" id="gal-lb-prev" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div id="gal-lb-media"></div>
+    <button class="gal-lb-nav next" id="gal-lb-next" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<script src="/share.js"></script>
+</body>
+</html>

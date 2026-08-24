@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enviar archivos — KookyeCatCloud</title>
+<meta name="theme-color" content="#070b16">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234f7cff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23a855f7%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22url(%23g)%22%2F%3E%3Cg%20transform%3D%22translate(12%2012)%20scale(.8)%20translate(-12%20-12)%22%3E%3Cpath%20d%3D%22M17.5%2019a4.5%204.5%200%200%200%20.5-8.97%206%206%200%200%200-11.66-1.5A4%204%200%200%200%206.5%2019z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<style>
+  :root{
+    --bg:#070b16; --bg-deep:#04070f; --glass:rgba(255,255,255,.045); --glass-2:rgba(255,255,255,.075);
+    --line:rgba(255,255,255,.075); --line-2:rgba(255,255,255,.14);
+    --text:#eaf0ff; --muted:#a3b0cf; --faint:#6d7c9e;
+    --b1:#4f7cff; --b2:#a855f7; --brand:linear-gradient(135deg,var(--b1),var(--b2));
+    --ok:#34d399; --danger:#fb5c74;
+    --r:16px; --r-lg:24px;
+    --sh:0 24px 60px -12px rgba(0,0,0,.7);
+    --font:-apple-system,BlinkMacSystemFont,'Segoe UI Variable Display','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
+  body{margin:0;min-height:100dvh;font-family:var(--font);background:var(--bg-deep);color:var(--text);
+    font-size:15px;line-height:1.5;display:flex;align-items:center;justify-content:center;padding:24px;
+    -webkit-font-smoothing:antialiased;}
+  .aurora{position:fixed;inset:-20% -10%;z-index:0;pointer-events:none;overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%,#0d1730 0%,var(--bg) 45%,var(--bg-deep) 100%);}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;}
+  .b1{width:46vw;height:46vw;left:-8vw;top:-12vw;background:radial-gradient(circle,rgba(79,124,255,.75),transparent 70%);}
+  .b2{width:40vw;height:40vw;right:-6vw;top:-6vw;background:radial-gradient(circle,rgba(168,85,247,.6),transparent 70%);}
+  .card{position:relative;z-index:1;width:100%;max-width:480px;padding:34px 30px;border-radius:var(--r-lg);
+    background:linear-gradient(170deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+    border:1px solid var(--line-2);box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);}
+  .logo{width:56px;height:56px;border-radius:17px;margin:0 auto 18px;display:grid;place-items:center;
+    background:var(--brand);box-shadow:0 12px 34px -8px rgba(79,124,255,.85),inset 0 1px 0 rgba(255,255,255,.4);}
+  .logo svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  h1{margin:0;text-align:center;font-size:22px;font-weight:700;letter-spacing:-.03em;}
+  .sub{margin:6px 0 24px;text-align:center;color:var(--faint);font-size:13px;}
+  .drop{border:2px dashed var(--line-2);border-radius:var(--r);padding:32px 20px;text-align:center;
+    cursor:pointer;transition:.2s var(--ease);}
+  .drop:hover,.drop.over{border-color:var(--b1);background:rgba(79,124,255,.09);}
+  .drop svg{width:34px;height:34px;stroke:var(--muted);fill:none;stroke-width:1.7;stroke-linecap:round;
+    stroke-linejoin:round;margin-bottom:10px;}
+  .drop b{display:block;font-size:15px;font-weight:650;}
+  .drop span{font-size:12.5px;color:var(--faint);}
+  .files{margin-top:16px;display:flex;flex-direction:column;gap:7px;max-height:230px;overflow-y:auto;}
+  .f{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:12px;background:var(--glass);
+    border:1px solid var(--line);font-size:13.5px;}
+  .f .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .f .sz{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums;}
+  .f .x{background:none;border:none;color:var(--faint);cursor:pointer;font-size:17px;line-height:1;padding:0 3px;}
+  .f .x:hover{color:var(--danger);}
+  .btn{width:100%;margin-top:18px;padding:13px;border-radius:12px;border:none;background:var(--brand);
+    color:#fff;font-size:15px;font-weight:650;font-family:inherit;cursor:pointer;
+    box-shadow:0 6px 24px -6px rgba(79,124,255,.6);transition:.2s;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;}
+  .track{height:6px;border-radius:99px;background:rgba(0,0,0,.5);overflow:hidden;margin-top:16px;}
+  .fill{height:100%;width:0;border-radius:99px;background:var(--brand);transition:width .25s var(--ease);}
+  .msg{margin-top:16px;padding:13px 15px;border-radius:12px;font-size:13.5px;text-align:center;}
+  .msg.ok{background:rgba(52,211,153,.13);color:#9df0cf;border:1px solid rgba(52,211,153,.3);}
+  .msg.err{background:rgba(251,92,116,.13);color:#ffb3bd;border:1px solid rgba(251,92,116,.3);}
+  .foot{margin-top:20px;text-align:center;font-size:11.5px;color:var(--faint);}
+  .state{text-align:center;padding:20px 0;color:var(--muted);font-size:14px;}
+</style>
+</head>
+<body>
+<div class="aurora"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<main class="card">
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .5-8.97 6 6 0 0 0-11.66-1.5A4 4 0 0 0 6.5 19z"/></svg>
+  </div>
+  <h1 id="titulo">Enviar archivos</h1>
+  <p class="sub" id="subtitulo">Comprobando el enlace…</p>
+
+  <div id="cargando" class="state">Un momento…</div>
+
+  <div id="zona" hidden>
+    <div class="drop" id="drop">
+      <svg viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M20 15v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"/></svg>
+      <b>Arrastra tus archivos aquí</b>
+      <span>o pulsa para elegirlos</span>
+    </div>
+    <input type="file" id="input" multiple hidden>
+    <div class="files" id="lista"></div>
+    <div class="track" id="barra" hidden><div class="fill" id="progreso"></div></div>
+    <button class="btn" id="enviar" disabled>Enviar</button>
+  </div>
+
+  <div id="aviso"></div>
+  <p class="foot">Enviado a través de KookyeCatCloud · cloud.djl.com.es</p>
+</main>
+
+<script src="/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+node_modules/
+.thumbs/
+.env
+.jwt-secret
+users.json
+users.json.tmp
+uploadlinks.json
+uploadlinks.json.tmp
+sessions.json
+sessions.json.tmp
+activity.log.jsonl
+*.log
+.DS_Store
+Thumbs.db
