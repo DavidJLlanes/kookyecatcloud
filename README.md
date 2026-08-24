@@ -1,6 +1,6 @@
 # KookyeCatCloud
 
-Servidor de archivos y backup de fotos para `tu-dominio.com`. Node + Express por detrás,
+Servidor de archivos y backup de fotos autoalojado. Node + Express por detrás,
 PWA sin dependencias por delante.
 
 ## Arrancar en local
