@@ -1,6 +1,6 @@
 # KookyeCatCloud
 
-Servidor de archivos y backup de fotos para `cloud.djl.com.es`. Node + Express por detrás,
+Servidor de archivos y backup de fotos para. Node + Express por detrás,
 PWA sin dependencias por delante.
 
 ## Arrancar en local
