@@ -474,7 +474,7 @@ function salirModo2fa() {
   $('login-2fa-campo').hidden = true;
   $('login-2fa-code').value = '';
   $('login-btn').textContent = 'Entrar';
-  $('login-sub').textContent = 'cloud.djl.com.es';
+  $('login-sub').textContent = 'Tu nube personal';
 }
 
 async function logout() {

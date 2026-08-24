@@ -1,7 +1,7 @@
 {
   "name": "kookyecatcloud",
   "version": "1.0.0",
-  "description": "Servidor de archivos y backup de fotos - cloud.djl.com.es",
+  "description": "Servidor de archivos y backup de fotos personal, autoalojado",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

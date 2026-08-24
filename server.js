@@ -1,6 +1,5 @@
 /**
- * KookyeCatCloud - Servidor de archivos y backup de fotos
- * cloud.djl.com.es
+ * KookyeCatCloud - Servidor de archivos y backup de fotos personal, autoalojado
  */
 const express = require('express');
 const multer = require('multer');
